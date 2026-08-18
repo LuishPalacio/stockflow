@@ -69,4 +69,4 @@ serve.py               sobe o app com Waitress para uso na rede local
 templates/             views Jinja2
 static/                CSS e JS
 docker-compose.yml      app + PostgreSQL, com segredo via Docker secret
-``
+```
