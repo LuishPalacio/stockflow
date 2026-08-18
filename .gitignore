@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+
+# Banco de dados local (mesmo sendo dados fictícios, não faz sentido versionar)
+*.db
+*.db-wal
+*.db-shm
+
+# Logs locais
+*.log
+
+.venv/
+venv/
+
+# Chave secreta de sessão e outras credenciais locais - nunca versionar
+instance/
+.env
+/secrets/
+
+# Pasta de dados persistidos pelo container Docker (bind mount)
+/data/

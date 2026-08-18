@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Histórico{% endblock %}
+{% block breadcrumb %}Equipamentos &rsaquo; Histórico{% endblock %}
+
+{% block content %}
+<div class="page-title">
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+    <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>
+  </svg>
+  Histórico de {{ label }}
+</div>
+
+<div class="card">
+  <div class="table-wrap">
+    <table class="data">
+      <thead>
+        <tr>
+          <th>Quando</th>
+          <th>Usuário</th>
+          <th>Ação</th>
+          <th>Campo</th>
+          <th>De</th>
+          <th>Para</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for h in historico %}
+        <tr>
+          <td>{{ h["data_hora"] }}</td>
+          <td>{{ h["usuario"] or "-" }}</td>
+          <td>
+            {%- if h["acao"] == "criado" -%}
+              <span class="badge badge-green">Criado</span>
+            {%- elif h["acao"] == "excluido" -%}
+              <span class="badge badge-red">Excluído</span>
+            {%- else -%}
+              <span class="badge badge-accent">Editado</span>
+            {%- endif -%}
+          </td>
+          <td>{{ h["campo"] or "-" }}</td>
+          <td>{{ h["valor_anterior"] or "-" }}</td>
+          <td>{{ h["valor_novo"] or "-" }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="empty-state">Nenhuma alteração registrada ainda.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="form-actions">
+    <a class="btn btn-outline" href="{{ url_for('listar_equipamentos') }}">Voltar</a>
+  </div>
+</div>
+{% endblock %}

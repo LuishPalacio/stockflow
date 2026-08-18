@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block breadcrumb %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-title">Painel geral</div>
+
+<div class="stat-grid">
+  <div class="stat-card">
+    <span class="stat-icon">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/>
+      </svg>
+    </span>
+    <div>
+      <div class="label">Total de equipamentos</div>
+      <div class="value">{{ total }}</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <span class="stat-icon">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M12 2v20M17 6.5c0-1.9-2.2-3.5-5-3.5S7 4.6 7 6.5 9.2 10 12 10s5 1.6 5 3.5-2.2 3.5-5 3.5-5-1.6-5-3.5"/>
+      </svg>
+    </span>
+    <div>
+      <div class="label">Valor total em estoque</div>
+      <div class="value">R$ {{ "%.2f"|format(valor_total)|replace(".", ",") }}</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <span class="stat-icon">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+        <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+      </svg>
+    </span>
+    <div>
+      <div class="label">Tipos de equipamento</div>
+      <div class="value">{{ por_tipo|length }}</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <span class="stat-icon">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M20 6 9 17l-5-5"/>
+      </svg>
+    </span>
+    <div>
+      <div class="label">Estados registrados</div>
+      <div class="value">{{ por_estado|length }}</div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">Equipamentos por tipo</div>
+  {% for row in por_tipo %}
+  <div class="bar-row">
+    <span>{{ row.tipo or "Sem tipo" }}</span>
+    <div class="bar-track"><div class="bar-fill" style="width: {{ (row.n / total * 100) if total else 0 }}%"></div></div>
+    <span>{{ row.n }}</span>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="card">
+  <div class="card-title">Equipamentos por estado</div>
+  {% for row in por_estado %}
+  <div class="bar-row">
+    <span>{{ row.estado or "Sem estado" }}</span>
+    <div class="bar-track"><div class="bar-fill" style="width: {{ (row.n / total * 100) if total else 0 }}%"></div></div>
+    <span>{{ row.n }}</span>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

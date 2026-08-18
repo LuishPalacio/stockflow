@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ titulo }}{% endblock %}
+{% block breadcrumb %}Equipamentos &rsaquo; {{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-title">{{ titulo }}</div>
+
+<form class="card" method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  {% if erro %}
+  <div class="login-msg login-msg-erro" style="margin-bottom: 16px">{{ erro }}</div>
+  {% endif %}
+  {% for section_title, fields in sections %}
+  <div class="form-section">
+    <h3>{{ section_title }}</h3>
+    <div class="form-grid">
+      {% for name, label, type in fields %}
+      <div class="field">
+        <label for="{{ name }}">{{ label }}</label>
+        {% if type == "textarea" %}
+        <textarea id="{{ name }}" name="{{ name }}">{{ equipamento[name] if equipamento else "" }}</textarea>
+        {% else %}
+        <input
+          type="{{ type }}"
+          id="{{ name }}"
+          name="{{ name }}"
+          step="{{ '0.01' if type == 'number' else '' }}"
+          value="{{ equipamento[name] if equipamento and equipamento[name] is not none else '' }}">
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+
+  <div class="form-actions">
+    <button class="btn btn-green" type="submit">Salvar</button>
+    <a class="btn btn-outline" href="{{ url_for('listar_equipamentos') }}">Cancelar</a>
+  </div>
+</form>
+{% endblock %}

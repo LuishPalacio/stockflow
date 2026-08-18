@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrar · StockFlow</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="login-body">
+<div class="login-screen">
+  <div class="login-blob login-blob-a"></div>
+  <div class="login-blob login-blob-b"></div>
+  <div class="login-blob login-blob-c"></div>
+
+  <div class="login-card">
+    <div class="login-brand">
+      <span class="login-mark">
+        <svg viewBox="0 0 32 32" width="36" height="36">
+          <rect x="4" y="4" width="24" height="24" rx="7" fill="var(--accent)"/>
+          <rect x="11" y="11" width="10" height="10" rx="3" fill="#fff" fill-opacity=".92"/>
+        </svg>
+      </span>
+      <span class="login-brand-name">StockFlow</span>
+    </div>
+
+    {% if erro %}<div class="login-msg login-msg-erro">{{ erro }}</div>{% endif %}
+    {% if info %}<div class="login-msg login-msg-info">{{ info }}</div>{% endif %}
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+    <div class="login-msg {{ 'login-msg-erro' if category == 'error' else 'login-msg-info' }}">{{ message }}</div>
+    {% endfor %}
+
+    <form method="post" action="{{ url_for('login') }}" class="login-form">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input type="email" name="email" placeholder="Digite seu e-mail" required autofocus>
+      <input type="password" name="senha" placeholder="Digite sua senha" required>
+      <a class="login-reset" href="{{ url_for('redefinir_senha') }}">Redefinir senha/desbloquear acesso</a>
+      <button type="submit" class="btn btn-green login-submit">Entrar</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

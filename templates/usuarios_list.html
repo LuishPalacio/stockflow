@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Usuários{% endblock %}
+{% block breadcrumb %}Usuários{% endblock %}
+
+{% block content %}
+<div class="page-title">
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+    <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+  </svg>
+  Usuários
+</div>
+
+<div class="card">
+  <div class="toolbar">
+    <a class="tbtn accent" href="{{ url_for('novo_usuario') }}" title="Adicionar">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+    </a>
+    <div class="spacer"></div>
+    <span style="font-size:.8rem;color:var(--muted)">{{ usuarios|length }} usuário{{ "s" if usuarios|length != 1 else "" }}</span>
+  </div>
+
+  <div class="table-wrap">
+    <table class="data">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Permissão</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in usuarios %}
+        <tr>
+          <td>{{ u["nome"] or "-" }}</td>
+          <td>{{ u["email"] }}</td>
+          <td><span class="badge {{ 'badge-accent' if u['is_admin'] else 'badge-slate' }}">{{ "Administrador" if u["is_admin"] else "Usuário" }}</span></td>
+          <td style="display:flex; gap:6px;">
+            <a class="tbtn" href="{{ url_for('redefinir_senha_usuario', user_id=u['id']) }}" title="Redefinir senha">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            </a>
+            {% if u["id"] != session.get("user_id") %}
+            <form method="post" action="{{ url_for('excluir_usuario', user_id=u['id']) }}"
+                  onsubmit="return confirm('Remover o acesso de {{ u['email'] }}?');">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <button class="tbtn danger" type="submit" title="Remover acesso">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>
+              </button>
+            </form>
+            {% else %}
+            <span style="font-size:.75rem;color:var(--muted); align-self:center;">você</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4" class="empty-state">Nenhum usuário cadastrado.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
