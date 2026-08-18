@@ -2,7 +2,7 @@
 
 Sistema web de controle de ativos de TI (notebooks, desktops, monitores, celulares, tablets, impressoras, nobreaks) desenvolvido com **Flask** e **PostgreSQL**.
 
-> Projeto de portfólio com dados 100% fictícios, criado a partir de um sistema real que desenvolvi para controle de estoque de equipamentos de TI. Nomes, e-mails e números de série usados aqui são gerados aleatoriamente — nada corresponde a pessoas ou empresas reais.
+> Projeto de portfólio com dados 100% fictícios.
 
 ## Funcionalidades
 
