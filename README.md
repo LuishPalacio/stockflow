@@ -69,8 +69,4 @@ serve.py               sobe o app com Waitress para uso na rede local
 templates/             views Jinja2
 static/                CSS e JS
 docker-compose.yml      app + PostgreSQL, com segredo via Docker secret
-```
-
-## Sobre o projeto original
-
-Este repositório é uma recriação para portfólio de um sistema que desenvolvi para controle de ativos de TI em uma empresa. A versão em produção não pode ser publicada por conter dados internos reais; esta versão reproduz a arquitetura e as funcionalidades com um banco populado por dados fictícios, para fins de demonstração.
+``
