@@ -173,8 +173,8 @@ def gerar_equipamento(indice, tipo):
 
 def montar_equipamentos():
     quantidades = {
-        "Notebook": 20, "Desktop": 10, "Monitor": 12, "Celular": 10,
-        "Tablet": 4, "Impressora": 4, "Nobreak": 3,
+        "Notebook": 5, "Desktop": 3, "Monitor": 3, "Celular": 3,
+        "Tablet": 2, "Impressora": 2, "Nobreak": 2,
     }
     equipamentos = []
     indice = 1
